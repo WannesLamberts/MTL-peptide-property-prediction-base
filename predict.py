@@ -78,17 +78,39 @@ def predict_run(run, all_data_file, predict_i):
     predict(run, args, run_config)
 
 
+import argparse
+
 if __name__ == "__main__":
+    # Setup argparse to handle command-line arguments
+    parser = argparse.ArgumentParser(description="Run prediction with a trained model")
 
-    # Example on how to create predictions with an existing model
-    best_run = (
-        "lightning_logs/CONFIG=mtl_5foldcv_finetune_tape_0,TASKS=CCS_iRT,MODE=supervised,PRETRAIN=tape,"
-        "LR=0.0003105497384738,BS=1024,OPTIM=adamw,LOSS=mae,CLIP=False,ACTIVATION=gelu,SCHED=warmup_decay_cos,"
-        "SIZE=768,NUMLAYERS=12/version_0"
+    # Add arguments to the parser
+    parser.add_argument(
+        "--run", type=str, required=True, help="Path to the model run (e.g., best_run directory)"
+    )
+    parser.add_argument(
+        "--all_data_file", type=str, required=True, help="Path to the all data CSV file"
+    )
+    parser.add_argument(
+        "--predict_i", type=str, required=True, help="Path to the prediction index file"
     )
 
-    predict_run(
-        best_run,
-        "data/mtl_5fold_cv/all_data.csv",
-        "data/mtl_5fold_cv/test_0.csv",
-    )
+    # Parse the arguments
+    args = parser.parse_args()
+
+    # Call the prediction function with command-line arguments
+    predict_run(args.run, args.all_data_file, args.predict_i)
+
+# if __name__ == "__main__":
+#
+#     best_run = (
+#         "lightning_logs/CONFIG=mtl_5foldcv_finetune_tape_0,TASKS=CCS_iRT,MODE=supervised,PRETRAIN=tape,"
+#         "LR=0.0003105497384738,BS=1024,OPTIM=adamw,LOSS=mae,CLIP=False,ACTIVATION=gelu,SCHED=warmup_decay_cos,"
+#         "SIZE=768,NUMLAYERS=12/version_0"
+#     )
+#
+#     predict_run(
+#         best_run,
+#         "data/10_filenames_fsplit/all_data.csv",
+#         "data/10_filenames_fsplit/test_0.csv",
+#     )
