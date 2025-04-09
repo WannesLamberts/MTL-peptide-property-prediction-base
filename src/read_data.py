@@ -46,7 +46,7 @@ def read_train_val_test_data(args):
     else:
         df_train = filter_on_tasks(
             (
-                pd.read_csv(args.train_file, index_col=0)
+                pd.read_parquet(args.train_file)
                 if args.train_file is not None
                 else None
             ),
@@ -54,7 +54,7 @@ def read_train_val_test_data(args):
         )
         df_val = filter_on_tasks(
             (
-                pd.read_csv(args.val_file, index_col=0)
+                pd.read_parquet(args.val_file)
                 if args.val_file is not None
                 else None
             ),
@@ -62,7 +62,7 @@ def read_train_val_test_data(args):
         )
         df_test = filter_on_tasks(
             (
-                pd.read_csv(args.val_file, index_col=0)
+                pd.read_parquet(args.test_file)
                 if args.test_file is not None
                 else None
             ),

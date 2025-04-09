@@ -46,6 +46,7 @@ def predict(run, args, run_config):
         check_checkpoint_path(os.path.join(run, "checkpoints")),
         mtl_config=args,
         bert_config=bert_config,
+
     )
 
     name, version = run.split("/")[-2:]
@@ -94,7 +95,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "--predict_i", type=str, required=True, help="Path to the prediction index file"
     )
-
     # Parse the arguments
     args = parser.parse_args()
 
