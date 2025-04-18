@@ -9,6 +9,34 @@ def apply_index_file(data_df, i_file):
 def filter_on_tasks(df, tasks):
     return df[df["task"].isin(tasks)]
 
+def read_train_val_test(args):
+    all_data = pd.read_parquet(args.data_file)
+    df_train = (
+        filter_on_tasks(
+            (apply_index_file(all_data, args.train_i)),
+            args.tasks,
+        )
+        if args.train_i is not None
+        else None
+    )
+    df_val = filter_on_tasks(
+            (
+                pd.read_parquet(args.val_file)
+                if args.val_file is not None
+                else None
+            ),
+            args.tasks,
+        )
+    df_test = filter_on_tasks(
+            (
+                pd.read_parquet(args.test_file)
+                if args.test_file is not None
+                else None
+            ),
+            args.tasks,
+        )
+
+    return df_train, df_val, df_test
 
 def read_train_val_test_data(args):
     """
