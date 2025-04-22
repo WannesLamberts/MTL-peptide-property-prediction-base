@@ -63,7 +63,7 @@ def train(args):
     print(f"Logging to {logger.log_dir}")
 
     print("Reading train and validation data")
-    args.df_train, args.df_val, args.df_test = read_train_val_test(args)
+    args.df_train, args.df_val, args.df_test = read_train_val_test_data(args)
 
     print("Creating or loading the vocab")
     args.vocab = get_vocab(args)

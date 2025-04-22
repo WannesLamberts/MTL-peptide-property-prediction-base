@@ -45,7 +45,7 @@ def read_train_val_test_data(args):
     :return:
     """
     if args.use_1_data_file:
-        all_data = pd.read_csv(args.data_file, index_col=0)
+        all_data = pd.read_parquet(args.data_file)
 
         df_train = (
             filter_on_tasks(
